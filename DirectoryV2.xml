@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <trees>
+     <tree path="/src/directive" title="指令集"/>
+     <tree path="/src/layouts/sidebar/SideBar.vue" title="左侧整体菜单" extension="vue"/>
+     <tree path="/src/views/list/card-list.vue" title="卡片列表" extension="vue"/>
+     <tree path="/src/views/list/list.vue" title="普通列表" extension="vue"/>
+     <tree path="/src/views/list/table-custom.vue" title="自定义列表" extension="vue"/>
+     <tree path="/src/views/list/table-with-search.vue" title="搜索列表" extension="vue"/>
+     <tree path="/src/views/index" title="主页"/>
+     <tree path="/src/types/types.ts" title="定义数据类型接口" extension="ts"/>
+     <tree path="/src/hooks/index.ts" title="统一管理钩子" extension="ts"/>
+     <tree path="/src/entity/system.ts" title="系统角色等数据类型模型接口" extension="ts"/>
+     <tree path="/src/views/list" title="表格列表"/>
+    <tree path="/src/views/manage" title="权限管理"/>
+    <tree path="/src/views/manage/character.vue" title="角色管理" extension="vue"/>
+    <tree path="/src/views/manage/user.vue" title="用户管理" extension="vue"/>
+    <tree path="/src/views/customsSYS/reagent.vue" title="试剂信息" extension="vue"/>
+    <tree path="/src/views/customsSYS/creat-diagnostic.vue" title="诊断预防物品生成" extension="vue"/>
+    <tree path="/src/views/customsSYS/approve.vue" title="审批单信息" extension="vue"/>
+    <tree path="/src/views/customsSYS/creat-inspection.vue" title="报检信息生成" extension="vue"/>
+    <tree path="/src/components/common/uploadDialog.vue" title="上传窗口" extension="vue"/>
+    <tree path="/src/views" title="页面"/>
+    <tree path="/src/utils" title="工具"/>
+    <tree path="/src/components/common/FDialog.vue" title="封装弹窗" extension="vue"/>
+</trees>

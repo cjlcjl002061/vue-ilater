@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ch">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+<!--      <link rel="icon" href="/src/assets/customs_sys_Logo.png">-->
+    <meta name="baidu-site-verification" content="code-ZIjDL0sXXu" />
+<!--    <title><%= htmlWebpackPlugin.options.title %>T0.0.0.2</title>-->
+    <link rel="stylesheet" href="<%= BASE_URL %>static/loading.css"/>
+  </head>
+  <body>
+<!--    <noscript>-->
+<!--      <strong>We're sorry but Admin Work X doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>-->
+<!--    </noscript>-->
+    <div id="app">
+      <div class="first-loading-wrp">
+        <div class="loading-wrp">
+            <i class="splash__item" style="--i: .1s"></i>
+            <i class="splash__item" style="--i: .2s"></i>
+            <i class="splash__item" style="--i: .3s"></i>
+            <i class="splash__item" style="--i: .4s"></i>
+            <i class="splash__item" style="--i: .5s"></i>
+            <i class="splash__item" style="--i: .6s"></i>
+            <i class="splash__item" style="--i: .7s"></i>
+            <i class="splash__item" style="--i: .8s"></i>
+        </div>
+
+      </div>
+    </div>
+    <!-- built files will be auto injected -->
+  </body>
+  <script>
+          var href=location.href
+          var idIndex = location.href.indexOf('sname=')
+          var sysName1=href.substring(idIndex+6,href.indexOf('#'))
+          //标签页名称
+          var title=document.createElement("title")
+          title.innerText=decodeURI('iLater-system')
+          document.head.appendChild(title);
+      // 标签页图标
+      // var link = document.createElement("link");//先获取link标签对象
+      // link.rel = "icon";//设置rel类型
+      // link.href = "/snibe/hyperfusion/parent/childSysImage/20_"+sysName1+".png?1650506973418";//设置href链接
+      // document.head.appendChild(link);//输出修改
+  </script>
+</html>
