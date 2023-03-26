@@ -22,6 +22,8 @@ export const upSetRoleMenu = baseUrl+"role/upSetRoleMenu"
 //禁用用户
 export const disableUserUrl=baseUrl+'user/disableUser'
 export const getAllUserUrl=baseUrl+'user/getAllUser'
+export const addUserInfo=baseUrl+'user/addUser'
+
 /**
  * 角色管理
  */

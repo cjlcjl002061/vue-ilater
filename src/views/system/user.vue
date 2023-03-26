@@ -3,7 +3,21 @@
     <div v-show="isHome" style="height:100%;" class="top_box_home">
       <!--顶部按钮区和搜索区    -->
       <div class="top_box_cjl">
-        <!--      筛选条件  -->
+        <!--  新增用户按钮      -->
+        <div class="addUserBox">
+          <n-button secondary strong @click="onAddUser" class="add_menu_btn zdy_btn_main">
+            <template #icon>
+              <n-icon size="18">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                     viewBox="0 0 32 32">
+                  <path d="M17 15V8h-2v7H8v2h7v7h2v-7h7v-2z" fill="currentColor"></path>
+                </svg>
+              </n-icon>
+            </template>
+            添加用户
+          </n-button>
+        </div>
+        <!--  筛选条件  -->
         <div class="cjl_top_ad_box">
           <el-input
               v-model="inputSearch"
@@ -33,14 +47,14 @@
       </div>
       <div class="table_box_cjl">
         <TableBody>
-<!--          <template #tableConfig>
-            <TableConfig
-                v-model:border="tableConfig.border"
-                v-model:stripe="tableConfig.stripe"
-                @refresh="doRefresh"
-            >
-            </TableConfig>
-          </template>-->
+          <!--          <template #tableConfig>
+                      <TableConfig
+                          v-model:border="tableConfig.border"
+                          v-model:stripe="tableConfig.stripe"
+                          @refresh="doRefresh"
+                      >
+                      </TableConfig>
+                    </template>-->
           <template #default>
             <el-table
                 ref="tableRef"
@@ -53,7 +67,7 @@
                 :height="tableHeight"
                 @selection-change="handleSelectionChange"
             >
-<!--              <el-table-column type="selection" width="45" fixed="left"/>-->
+              <!--              <el-table-column type="selection" width="45" fixed="left"/>-->
               <el-table-column
                   align="center"
                   label="姓名"
@@ -122,19 +136,39 @@
       </div>
 
     </div>
+    <CustomModal
+        :showModal="showAddUser"
+        className="dkl"
+        attachDemo="#userMp"
+        :mw="400"
+        :mh="500"
+        :modelTitle="cmTitle"
+        @closeModal="closeAddUserModal"
+    >
+      <template #content>
+        <AddUserForm @doRefreshTable="doRefresh" @closeUserModal="closeAddUserModal"></AddUserForm>
+      </template>
 
+    </CustomModal>
 
 
   </div>
 </template>
+<script lang="ts">
 
+export default {
+  name: "User",
+}
+</script>
 <script setup lang="ts">
 import {useDataTable, usePost} from "@/hooks";
 import {computed, reactive, ref} from "vue";
 import {getWorkH} from "@/utils";
 import {disableUserUrl, getAllUserUrl} from "@/api/url";
 import {onMounted} from "@vue/runtime-core";
-import {ElMessage, ElMessageBox} from "element-plus";
+import {ElLoading, ElMessage, ElMessageBox} from "element-plus";
+import $ from "jquery";
+import AddUserForm from "@/views/system/vcs/addUserForm.vue";
 
 const post = usePost();
 const tableRef = ref();
@@ -144,7 +178,7 @@ const {
   tableConfig,
   handleSelectionChange,
   selectRows,
-  useHeight,
+  useHeight
 } = useDataTable<UserModelType>();
 
 const inputSearch = ref("");
@@ -158,8 +192,6 @@ const borderA = ref(350)
 const tableHeight = computed(() => {
   return getWorkH(borderA.value, 5);
 });
-
-
 const userModel = reactive<UserModelType>({
   id: 0,
   nickName: "",
@@ -171,7 +203,7 @@ const userModel = reactive<UserModelType>({
   password: "",
   status: 1,
 });
-tableLoading.value=false
+tableLoading.value = false
 const doRefresh = () => {
   let info = {
     page: currentPage.value,
@@ -182,11 +214,12 @@ const doRefresh = () => {
     url: getAllUserUrl,
     data: info
   }).then((res: any) => {
-    dataList.value=res.result.list;
+    dataList.value = res.result.list;
     total.value = res.result.total;
     tableLoading.value = false;
   })
 }
+
 function onEnableItem(item: any) {
   ElMessageBox.confirm(
       "确定要" + (item.disable === 1 ? "禁用" : "启用") + "此用户吗？",
@@ -211,6 +244,7 @@ function onEnableItem(item: any) {
       })
       .catch(console.log);
 }
+
 const handleSizeChange = (val: number) => {
   pageSize.value = val;
   doRefresh()
@@ -222,21 +256,49 @@ const handleCurrentChange = (val: number) => {
 onMounted(() => {
   doRefresh();
 });
+
+const showAddUser = ref(false);
+
+const cmTitle = ref("");
+const onAddUser = () => {
+  console.log("新增user");
+  const loading = ElLoading.service({
+    lock: true,
+    text: 'Loading',
+    background: 'rgba(0,0,0,0.62)',
+  })
+  $("#userMp").find(".vfm__content.modal-content").css({
+    "width": "45%"
+  })
+  showAddUser.value = true;
+  cmTitle.value="新增用户信息"
+  setTimeout(() => {
+    loading.close()
+  }, 500)
+}
+
+const closeAddUserModal=()=>{
+  showAddUser.value=false;
+}
 </script>
 
+
 <style lang="scss" scoped>
-.main-container{
+.main-container {
   padding: 10px 11px 5px;
 }
-.top_box_home{
+
+.top_box_home {
   background: var(--el-color-white);
   border-radius: 8px;
 }
+
 .top_box_cjl {
   background: transparent;
   padding: 24px 0px;
   display: flex;
   justify-content: flex-end;
+
   .cjl_top_ad_box {
     padding: 0px 25px;
     width: 30%;
@@ -250,7 +312,6 @@ onMounted(() => {
     }
 
   }
-
 }
 
 .table--footer {
@@ -278,7 +339,8 @@ onMounted(() => {
   background-color: var(--el-color-primary-light-2);
   color: var(--el-color-white);
 }
-.zdy_btn_main{
+
+.zdy_btn_main {
   height: 40px;
   border-radius: 8px 8px 8px 8px;
 }
